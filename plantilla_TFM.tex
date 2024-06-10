@@ -1,0 +1,59 @@
+%%***********************************************
+%% Plantilla para TFM.
+%% Escuela Técnica Superior de Ingenieros Informáticos. UPM.
+%%***********************************************
+
+%%-----------------------------------------------
+%% Importar Preámbulo:
+\input{include/Preambulo}
+%%-----------------------------------------------
+%% Cargar datos relativos al TFM:
+%% (actualizar estos datos en secciones/_DatosTFM.tex) 
+\input{secciones/_DatosTFM}
+% Cargar datos del glosario
+\input{include/Glosario}
+
+%%-----------------------------------------------
+%% Documento:
+\begin{document}
+\include{include/Portada}
+
+%%-----------------------------------------------
+%% Numeración romana:
+\frontmatter
+%%-----------------------------------------------
+\include{secciones/00_Acknowledgments}
+\include{secciones/00_Resumen}
+\tableofcontents
+\listoffigures
+
+%%-----------------------------------------------
+%% Numeración arábiga:
+\mainmatter
+%%----------------------------------------------- 
+% \part{Introducción}
+\include{secciones/01_Introduccion}
+
+% \part{Estado del arte}
+\include{secciones/02_SOTA_blockchain}
+\include{secciones/03_SOTA_recsys}
+
+% \part{Diseño e implementación}
+\include{secciones/04_Problema}
+\include{secciones/05_validacion}
+\include{secciones/06_Implementacion}
+
+% \part{Conclusiones y resultados}
+\include{secciones/19_Resultados}
+\include{secciones/20_Conclusiones}
+
+\include{secciones/90_Bibliografia}
+%%---------------------------------------------------------
+% Imprimir el glosario
+% \printglossaries
+\printglossary[type=\acronymtype, style=listsp]
+%%-----------------------------------------------
+%% Anexos
+\appendix
+\include{secciones/99_Anexos}
+\end{document}

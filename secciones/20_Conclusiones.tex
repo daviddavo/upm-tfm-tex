@@ -1,0 +1,45 @@
+\chapter{Conclusiones y trabajo futuro}
+
+\section{Conclusiones}
+
+Para realizar este trabajo, se ha definido el problema de la recomendación de propuestas en DAOs, y se han creado distintos elementos para evaluar este problema de manera agnóstica al modelo, usando datos históricos (evaluación offline): una línea base robusta inspirada en MostPop acorde a este caso de uso llamada OpenPop, y una manera de realizar validación cruzada con distintos subconjuntos de datos del conjunto de datos, basada en el tiempo.
+
+Para comprobar dicha metodología, se han desarrollado tres sistemas recomendadores: un primer sistema, basado en el contenido, utilizando \textit{embeddings} de la información textual de las propuestas; un segundo de filtrado colaborativo basado en LightGCN; y un tercer recomendador, híbrido, que fusiona los otros dos. Los tres sistemas han superado satisfactoriamente la linea base establecida, siendo el basado en contenido el que mejores resultados ha obtenido, y obteniendo el híbrido resultados entre medias de los otros dos.
+
+Finalmente, se ha comprobado la metodología con otras 3 organizaciones, superando en todas ellas la línea base establecida.
+
+\subsection{Limitaciones}
+
+Debido a que se ha utilizado evaluación offline, desconocemos cómo funcionaría el sistema en un entorno real, y si este afectaría al comportamiento de los usuarios. Aunque en otros tipos de comunidades en línea haya aumentado la participación, no tiene por que ser así en este caso. Además, se han utilizado pocos datos de los presentes en el conjunto de datos.
+
+En el caso del modelo basado en GNN (y, por lo tanto, el híbrido también), deben ser reentrenados para realizar recomendaciones, con sus debidos costes. No se ha comprobado el comportamiento de utilizar en el siguiente fold temporal un modelo preentrenado.
+
+Dentro de la evaluación offline, no se han comprobado métricas que pueden proporcionar información más interesante para explicar las recomendaciones realizadas, como la diversidad, la novedad, serendipia, o la \textit{explained variance}. Además, la diferencia entre la linea base OpenPop, sin personalización, y el resto de modelos probados es muy baja, pues los pocos elementos más votados sesgan las métricas basadas en \textit{top-k recommendations}~\cite{cremonesi_performance_2010}.
+
+\subsection{Trabajo publicado}
+
+El código realizado está disponible en GitHub~\cite{davo_daviddavoupm-tfm-notebooks_2024}, y el conjunto de datos en Kaggle~\cite{tfm-dataset-text}. Los resultados de la búsqueda y optimización de hiperparámetros de los modelos (\url{ray_results}) están disponibles en Zenodo~\cite{tfm-ray-results}.
+
+Finalmente, se ha escrito y enviado un artículo para el \textit{18th ACM Conference on Recommender Systems}, aún pendiente de revisión~\cite{davo_enhancing_2024}.
+
+\section{Trabajo futuro}
+
+Una vez comprobado que ambos enfoques proporcionan recomendaciones similares, debería explorarse mejor el uso de otros modelos, especialmente híbridos, como pueden ser las Factorization Machines como xDeepFM~\cite{lian_xdeepfm_2018}, o algoritmos de GNN para grafos etiquetados. Como la línea base logra muy buenos resultados a bajo coste, podría explorarse el uso de modificaciones con personalización como TimePop~\cite{azzopardi_local_2019}. Dado que la información textual parece ser altamente relevante, pueden realizarse recomendaciones utilizando \glspl{llm}~\cite{li_pap-rec_2024}. Como se ha podido ver, las distribución temporal de votos en propuestas no es uniforme, ni según el tiempo absoluto (día de la semana), ni según el tiempo relativo (horas desde que se abrió la propuesta), por lo que debería añadirse esa información contextual al sistema recomendador. El grafo utilizado para el filtrado colaborativo también puede expandirse utilizando interacciones entre los usuarios fuera de la DAO, pues esos datos son accesibles en el blockchain.
+
+Recientemente se ha añadido soporte para sistemas recomendadores en la librería PyTorch Geometric~\cite{fey_fast_2019}, y en su hoja de ruta está el añadir soporte para grafos temporales, por lo que sería buena idea intentar utilizar sus modelos, pero siguiendo utilizando el \textit{framework} de evaluación de Microsoft Recommenders~\cite{argyriou_microsoft_2020}.
+
+Para mejorar la escalabilidad del modelo, deberían poderse realizar recomendaciones sin la necesidad de reentrenarlo completamente, o bien cambiando el tipo de modelo, o bien comprobando el comportamiento del modelo actual a la reanudación del entrenamiento con nuevos datos.
+
+Finalmente, el sistema podría desplegarse de manera descentralizada, en alguna plataforma como Golem Network~\cite{uriarte_blockchain-based_2018}.
+
+% \begin{itemize}
+%     \item Sobre todo, no ignorar la característica temporal del problema. Seguramente tenga más sentido recomendar una propuesta recién creada en las últimas horas que una creada hace 5 días. La de 5 días probablemente haya sido vista por el usuario, pero ha decidido ignorarla activamente. Sin embargo, la que se ha creado hace poco puede que no la haya visto. Recientemente añadieron soporte para sistemas recomendadores en la librería PyTorch Geometric, y está en su roadmap añadir soporte para grafos temporales, por lo que sería buena idea intentar utilizar ese modelo, con el framework de microsoft recommenders.
+%     \item En el recomendador kNN pln, probar con otros tipos de sampling negativo
+%     \item En el filtrado colaborativo, probar con otros tipos de aprendizaje no supervisado (clústering / \textbf{topic modeling}).
+%     \item Afinar mejor las muestras negativas distinguiendo si un usuario no podía tan siquiera haber votado en esa propuesta (por ejemplo, porque se creó antes de que él fuese miembro).
+%     \item Enriquecer la parte del recomendador de filtrado colaborativo teniendo en cuenta no solo las propuestas en común, si no las interacciones entre ese usuario y otras DAOs, o incluso incluir transacciones de Ethereum en común entre dos usuarios e interacciones en otras dApps.
+%     \item Obviamente, probar con otros tipos de sistemas recomendadores, especialmente, con una MF o FM o como se llame
+%     \item En el caso del GNN, cambiarlo por un sistema recomendador que no requiera de la creación de un nuevo modelo en cada caso
+%     \item Obviamente, integrar el sistema recomendador en la aplicación original, tal vez con un add-on o un fork o algo similar
+%     \item Ejecutar el sistema recomendador de manera descentralizada, con alguna plataforma como Golem Network~\cite{uriarte_blockchain-based_2018}.
+% \end{itemize}

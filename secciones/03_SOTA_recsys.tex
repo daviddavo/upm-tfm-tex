@@ -1,0 +1,161 @@
+\chapter{Sistemas Recomendadores}
+
+\section{Trabajo relacionado}
+
+Hasta donde sabemos, hasta ahora nadie ha estudiado el uso de Sistemas Recomendadores para \glspl{dao}. Por lo tanto, en esta sección se proporcionará una visión general de la aplicación de Sistemas Recomendadores en áreas cercanas.
+
+Los Sistemas Recomendadores han sido usados para abordar el problema de la participación en proyectos colaborativos. Por ejemplo, en Wikipedia se han usado para recomendar tareas y artículos para traducir. SuggestBot, uno de los primeros de estos sistemas desplegado en 2007, realiza asignación de tareas (limpieza, arreglar formato, eliminar o fusionar artículos...) de manera personalizada usando filtrado colaborativo~\cite{cosley_suggestbot_2007}. Para llenar las lagunas en la traducción de artículos de manera eficiente y recomendar artículos que crear en otros idiomas, \cite{wulczyn_growing_2016} ordena los artículos por relevancia en cada idioma y después los asigna a editores basándose en el texto de sus contribuciones previas. WikiRecNet~\cite{moskalenko_scalable_2020} es un sistema creado sobre \textit{representation learning}, con \textit{Doc2Vec} y \textit{GraphSAGE} (una \gls{gcn}) para ayudar a los editores a lidiar con el gran volumen de artículos potenciales que pueden requerir de su atención. Notablemente, estos sistemas consiguieron satisfactoriamente mejorar las contribuciones de los miembros. 
+
+Este tipo de sistemas también han sido usados en plataformas de desarrollo colaborativo como Bugzilla o GitHub para realizar triaje de \textit{bugs}, inicialmente en 2004 utilizando \textit{Naïve Bayes}~\cite{cubranic_automatic_2004}, y más recientemente utilizando técnicas más modernas como \textit{Hierarchical Attention Networks}~\cite{he_automatic_2021}. Estos sistemas también se han usado para ampliar el número de revisores recomendando desarrolladores adecuados que hayan trabajado en los mismos ficheros o similares~\cite{strand_using_2020,chueshev_expanding_2020,constantino_dual_2023} e incluso teniendo en cuenta el tiempo como contexto para realizar la recomendación usando \gls{gnn}~\cite{xie_time-series_2022}, o asignar \textit{bugs} a desarrolladores basándose en elementos textuales de \textit{bugs} arreglados en el pasado~\cite{sajedi-badashian_vocabulary_2020,diamantopoulos_automated_2023}, entre otras muchas tareas.
+
+Por otro lado, podemos coger inspiración del uso de sistemas recomendadores en democracia electrónica o \textit{e-Democracy}. En elecciones tradicionales en las que se elige un partido o candidato en un momento concreto, se han utilizado \textit{Voting Advice Applications} para abordar el problema de la participación~\cite{garzia_research_2016}. Sin embargo, estas aplicaciones principalmente asisten al usuario a elegir un candidato próximo a sus tendencias y preferencias~\cite{garzia_voting_2019}. Por ejemplo, \textcite{teran_fuzzy_2010} provee información sobre candidatos próximos a las tendencias del usuario, y \textcite{buryakov_using_2022} utiliza datos abiertos del gobierno para facilitar la creación automática de estos sistemas, que normalmente utilizan datos de encuestas. En cambio, nuestro sistema trataría de recomendar propuestas que los usuarios puedan encontrar interesantes, sin dirigir a los usuarios hacia una opción en concreto de la propuesta, y sin tener en cuenta sus elecciones anteriores. 
+
+El trabajo más cercano en este propósito sería el uso de sistemas recomendadores en plataformas de participación ciudadana~\cite{cantador_personalized_2017} y presupuestos participativos~\cite{cantador_whats_2018}. En estas plataformas los ciudadanos deciden qué propuestas la administración debería priorizar, normalmente las que cuentan con más apoyos. Las propuestas que son ignoradas no tienen impacto, mientras que en el contexto de las DAOs todas las propuestas deberían ser tenidas en cuenta. Además, ha de tenerse en cuenta de que los usuarios no pueden votar en contra de una propuesta, y las propuestas suelen permanecer abiertas durante un tiempo indefinido o muy largo, pues su implementación suele llevarse a cabo en los próximos meses o años y no inmediatamente, a diferencia de en las DAOs.
+
+Finalmente, la característica temporal de las propuestas en las DAOs nos lleva al dominio de la recomendación de eventos en \gls{ebsn}, fijándonos sobre todo en la evaluación de dichos sistemas. \textcite{zhang_collective_2015} utilizan un modelo bayesiano, pero no parecen tener en cuenta el tiempo. \textcite{pham_general_2015} utilizan grafos heterogéneos y consideran el tiempo (día de la semana, hora del día) una parte esencial del contexto para realizar la recomendación, sin embargo, no se tiene el tiempo en cuenta a la hora de evaluar el sistema. \textcite{minkov_collaborative_2010} recomiendan conferencias científicas utilizando filtrado colaborativo. Se evalúa la recomendación de ítems de los que no existe feedback previo, y se realiza un estudio con usuarios obteniendo feedback explícito y simulando recomendaciones semanales. En el caso de feedback implícito, \textcite{macedo_context-aware_2015} realizan una especie de validación cruzada dividiendo los datos históricos en entrenamiento y test según un momento temporal. Sin embargo, estos sistemas tienden a depender demasiado del contexto para realizar las recomendaciones, mientras que en nuestro caso solo contamos con la información textual de las propuestas.
+
+Cabe mencionar que, aunque sí se han utilizado técnicas de aprendizaje automático e inteligencia artificial para mejorar las aplicaciones basadas en blockchain~\cite{ressi_ai-enhanced_2024}, este parece ser el primer trabajo de aplicación de sistemas recomendadores a este tipo de organizaciones.
+
+% En este capítulo de un par de páginas se desarrolla el estado del arte tanto en \glspl{sr}, como en DAOs, como en aplicaciones de las DAOs, y aplicaciones de sistemas a las DAOs, o aplicaciones de \glspl{sr} a DAOs. A continuación una lista placeholder con varios papers que he encontrado:
+
+% \textbf{¿Qué hago con esto?} ¿Lo pongo en modo tabla como en~\cite{sajedi-badashian_vocabulary_2020}? ¿Lo pongo \textit{en texto plano}? ¿Itemizado? En caso de ser una tabla, tendría las siguientes columnas: Author, Year, Task (Bug Assignment, Bug Triage, Task Assignment), Técnicas usadas
+
+% \begin{itemize}
+%     \newcommand{\citesota}[1]{\textcite{#1}: \citetitle{#1} \citedate{#1}.}
+%     \item \citesota{cubranic_automatic_2004} El paper más antiguo que he encontrado. Utiliza un \gls{nb} para asignar bug reports (texto) a desarrolladores. La clase a predecir por el NB es el developer al que asignar el bug.
+%     \item Uno de los campos de uso más antiguos es el Automatic bug triage\cite{cubranic_automatic_2004, he_automatic_2021}, y el Bug Assignment~\cite{sajedi-badashian_vocabulary_2020}.
+%     \item \citesota{castro-herrera_hybrid_2010} Crean un \gls{sr} híbrido para foros de herramientas Open Source (como KeePass, MikTex o Notepad++, entre otros), que recomienda a usuarios potenciales posts que aún no han sido respondidos. La línea base es una recomendación aleatoria (mucho más optimista), y miden precisión/recall y f2. (Es decir, no hacen ranking). Sin embargo, miran la precisión en k con k entre 1 y 200 (aunque en realidad a partir de 10 se estanca). Este autor ha explorado anteriormente otros sistemas para la recomendación en foros \cite{castro-herrera_recommender_2009-1}, y el uso de sistemas similares para la educción de requisitos (es decir, en la especificación de requisitos el hecho de pensar qué requisitos son necesarios) a gran escala. Este último sistema lo que hace es juntar a usuarios con intereses similares para que trabajen juntos.
+%     \item \citesota{diamantopoulos_automated_2023} Utilizan topic modeling con \gls{lda} para asignar tickets JIRA automáticamente a los desarrolladores, no solo de bugs, sino también de nuevas caracteríticas, soporte, documentación, etc.
+%     \item \citesota{chueshev_expanding_2020} Basandose en los ficheros modificados, recomienda reviewers a los pull requests realizados en sistemas de control de versiones, estos si que usan filtrado colaborativo (\gls{mf}).
+%     \item \citesota{constantino_dual_2023} Igual que \cite{chueshev_expanding_2020}, se basan en los ficheros modificados, pero en este caso recomiendan colaboradores, es decir, otros desarrolladores a los que podrías consultar sobre un fichero en común. Usan TF-IDF para recomendar ficheros que sean relevantes, y evitar recomendar cosas que sean modificadas por todo el mundo.
+%     \item \citesota{cosley_suggestbot_2007}. Usa filtrado colaborativo para asignar tareas (limpieza, stubs, merges, añadir fuentes, expandir, o arreglar el formato) a editores de Wikipedia basado en intereses personalizados basado en la historia de contribuciones del usuario.
+%     \item \citesota{wulczyn_growing_2016}. Recomiendan artículos que existen en un idioma pero no existen en otro, basado en su importancia general y en los intereses de los editores.
+%     \item \citesota{moskalenko_scalable_2020} explora el uso de \glspl{gnn} y doc2vec para realizar recomendaciones de artículos de Wikipedia. La principal diferencia con Pinterest o YouTube es que hay muy poca participación. Por el momento, creo que este es el más similar a lo nuestro.
+%     \item \citesota{sajedi-badashian_vocabulary_2020} Asignación de bugs de GitHub. Este paper incluye un buen SOTA del campo del bug assignment.
+%     \item \citesota{greco_stackintheflow_2018} Un plugin del IDE que recomienda post de stack overflow relevantes cuando se produce un error. Para ello, genera una query basándose en el código del fichero, pero también aprende del usuario, viendo en cual de los resultados de la query tiende a hacer click.
+%     \item \citesota{xie_time-series_2022}. Utilizan una \gls{gnn} con un random walk sesgado en el tiempo para explotar el grafo de una mailing list para recomendar mediante \textit{link prediction} a nuevos usuarios de una comunidad mentores que puedan ayudarles, e intentar mantener el engagement. Destacaría que el scope de los datasets utilizados no es muy distinto al de las \glspl{dao}. Sinceramente, esto es lo que me hubiese gustado haber hecho.
+%     \item \citesota{yang_forum_2014} Utilizan un recomendador híbrido con factorización de matrices para recomendar a los estudiantes de \glspl{mooc} hilos de su interés
+%     \item \citesota{hu_question_2008} Hacen un \gls{sr} de preguntas abiertas e importantes en webs como Yahoo Answers (aún no existía StackOverflow) a usuarios, haciendo user modeling.
+%     \item \citesota{di_sipio_multinomial_2020} Usan MNB para predecir el topic que tendrá un repositorio y así recomendar posibles topics a un repositorio que no los tenga.
+%     \item \citesota{yan_auto-suggest_2020} Utilizan una red neuronal recurrente que recomienda que operadores utilizar en Jupyter Notebooks durante la fase de preparación de datos (limpieza, unión de dataframes, filtrado, etc.). No es realmente cooperative work, pero es un uso curioso. NADA. LA DESCARTO PORQUE NO TIENE MUCHO QUE VER.
+%     \item \citesota{qian_learning_2021} Los sistemas de recomendación de visualizaciones estaban basados en reglas, pero este propone un sistema basado en \gls{ml} con un modelo wide-and-deep.
+%     \item \citesota{chua_mvr-rcm_2024} Crean un \gls{sr} para recomendar microvideos educativos de la plataforma YouTube a usuarios interesados, pero no encuentro en el paper información concreta sobre la implementación del \gls{sr}.
+%     \item \citesota{khanal_systematic_2020} Un systematic literature review de sistemas recomendadores para e-learning.
+%     \item \citesota{mcnee_recommending_2002} Prueban varios algoritmos para recomendar artículos de investigación basandose en la red de citas entre papers.
+%     \item \citesota{teran_fuzzy_2010} Voting Assistance en eGovernment
+%     \item \citesota{cantador_whats_2018} Recomendador para Decide Madrid! Este parece el más similar a lo nuestro.
+% \end{itemize}
+
+% \textbf{[Conclusión]} Sin embargo, el uso de \glspl{sr} en \glspl{dao} es completamente nuevo. Además, la princial diferencia con el resto de sistemas es que las propuestas cierran pasado un tiempo, y tiende a dependerse demasiado del contenido, a penas se explora el filtrado colaborativo. También, que abunda el uso de \glspl{sr} en los que se \textit{asigna}, es decir, se hace una recomendación utilizando solo la mejor recomendación, e ignorando completamente el resto.
+
+\section{Librerías de sistemas recomendadores}
+
+En esta sección se realiza una exploración de potenciales librerías de sistemas recomendadores para la implementación del sistema propuesto en este trabajo. Se han buscado librerías en \textit{GitHub} y \textit{Papers With Code}, desarrolladas en los lenguajes de programación Python y/o R, que cuenten con una sólida base de usuarios y una documentación exhaustiva, y que al mismo tiempo incorporen los algoritmos estado del arte. A ser posible, basados en \gls{gnn}.
+
+A continuación se detallan las librerías consideradas durante esta exploración, sin seguir un orden específico:
+
+\begin{description}
+    \item [Spotlight~\cite{kula_spotlight_2017}] Con 2.9k estrellas en GitHub, es una de las librerías de sistemas recomendadores más famosas, actualmente está basada en PyTorch~\cite{paszke_pytorch_2019} y su objetivo es ser una herramienta para la exploración rápida y el prototipado de nuevos modelos, utilizando sus funciones de pérdida, herramientas de validación cruzada  y evaluación, o capas creadas. Sin embargo, también incluye implementaciones de modelos de factorización, basados en representaciones latentes, o incluso de secuencia. No obstante, no contiene modelos basados en grafos, y lleva 4 años sin recibir actualizaciones.
+    \item [Surprise~\cite{hug_surprise_2020}] Es un scikit (add-on basado en SciPy~\cite{virtanen_scipy_2020}) para sistemas recomendadores que hace gala de su extensa documentación y comunidad, con 6k estrellas en GitHub. Tiene interfaces muy similares a las de scikit-learn, por lo que es fácil de aprender a usar, y cuenta con varios algoritmos de filtrado colaborativo y hace sencillo el implementar nuevos algoritmos. Sin embargo, no cuenta con nada para sistemas basados en contenido.
+    \item [Implicit~\cite{frederickson_implicit_2018}] Como su nombre indica, esta librería se especializa en conjuntos de datos de feedback implícito como es nuestro caso. Su mayor fortaleza parece ser la rápida ejecución de sus modelos, algunos optimizados con código propio en CUDA. Sin embargo, al igual que surprise, no tiene ningún modelo basado en contenido.
+    \item [Crab~\cite{caraciolo_crab_2010}] Es otro scikit como surprise, pero creado mucho tiempo antes, en 2010. No cuenta con actualizaciones desde hace 13 años, por lo que se ha descartado su uso para evitar problemas de compatibilidad de dependencias. Sin embargo, se mantiene en esta lista pues tiene pocas dependencias y la implementación de algunos de los algoritmos podría servir de material de referencia.
+    \item [Pytorch Geometric~\cite{fey_fast_2019}] Su repositorio en GitHub cuenta con 20 mil estrellas, y está respaldada por la extensa comunidad de PyTorch~\cite{paszke_pytorch_2019}, por lo que contará con actualizaciones constantes a lo largo del tiempo. Aunque cuenta con muy buenas herramientas para \gls{gnn}, al comienzo de este trabajo no era factible usarla para sistemas recomendadores, pues habría que definir las métricas offline de evaluación, entre muchas otras cosas. En un principio se decidió usar esta librería, pero al tratarse de un nuevo conjunto de datos que no se ha probado anteriormente en sistemas recomendadores, con peculiaridades que lo hacen muy distinto a otros sistemas recomendadores (véase el capitulo~\ref{ch:planteamiento-problema}), se encontraron muchos problemas de desarrollo. Al tener que crear tanto código nuevo (conversión de datos a grafo, sampling, evaluación...), y tratarse de una librería en muy bajo nivel, era muy difícil depurar el código. En la versión 2.5.0 de febrero 2024 añadieron soporte para sistemas recomendadores, implementando métricas de recuperación como la precisión en $k$ o el \acrshort{ndcg}.
+    \item [Recommenders: Best Practices on Recommendation Systems~\cite{argyriou_microsoft_2020}] (anteriormente Microsoft's Recommenders). Librería creada por Microsoft con implementación de varios modelos de filtrado colaborativo, basado en contenido e híbridos. También cuenta con funciones de preparación de datos, métricas de evaluación offline, y herramientas para el despliegue de los modelos en un entorno de producción en Azure. De entre todas las librerías exploradas, consideramos que esta es la más completa y más adecuada para nuestro caso de uso.
+    \item [LibRecomender~\cite{massquantity_librecommender_2020}] Aunque su uso aún no está muy extendido y su versión 1.0 se lanzó en 2023, es una librería muy prometedora. Su enfoque integral abarca todo el proceso, desde el entrenamiento hasta el despliegue de los modelos. Cuenta con más de 20 modelos implementados en Tensorflow y PyTorch a su disposición, entre ellos muchos basados en \acrshort{gnn} como Deepwalk, LightGCN, NGCF o GraphSAGE, así como modelos híbridos que permiten tener en cuenta la información textual de las propuestas. También cuenta con soporte para características dinámicas y recomendaciones secuenciales. La única razón por la que no se eligió utilizar esta librería es porque se desconocía su existencia al comenzar el trabajo, y sólo se descubrió al realizar una revisión del estado del arte.
+\end{description}
+
+Finalmente, se decidió utilizar la librería Microsoft Recommenders~\cite{argyriou_microsoft_2020} para realizar un prototipado rápido y poder experimentar con varios modelos. Además, el repositorio cuenta con multitud de ejemplos de cada modelo que ilustran buenas prácticas y recomendaciones en el diseño de sistemas recomendadores.
+
+\section{Modelos}
+
+En esta sección se presentan los diferentes modelos de sistemas recomendadores que han sido considerados para este trabajo, junto con cierto contexto que permita la comprensión de su funcionamiento.
+
+En sistemas recomendadores, podemos distinguir dos tipos de modelos según los datos con los que trabajen. Los modelos basados en \acrfull{cf} se basan en las interacciones entre usuarios e ítems para realizar las recomendaciones~\cite{aggarwal_recommender_2016}, mientras que los modelos basados en contenido utilizan otros atributos de los usuarios e ítems, tal como la información textual, etiquetas, o ubicación. Los modelos híbridos combinan ambos enfoques para mejorar las recomendaciones y reducir sus problemas.
+
+Aunque también existen sistemas recomendadores basados en conocimiento, no se tratan en este trabajo debido a que es necesario cierta interactividad con la que no contamos.
+
+% Se da tan por hecho que no he encontrado ningún sitio que explique implicit/explicit feedback tal cual o de una definición
+Por otro lado, los sistemas recomendadores dependen de la fuente de los datos de entrada que se emplean para realizar las recomendaciones. En el \textit{feedback explícito} el usuario da una opinión directa sobre la interacción, como puede ser seleccionar \textquote{me gusta} o \textquote{no me gusta}, dar estrellas, o escribir una reseña. Por otro lado, en el \textit{feedback implícito} se observa el comportamiento del usuario, como puede ser el historial de acciones del usuario o el tiempo dedicado a un contenido~\cite{jawaheer_comparison_2010}. Como se detalla en el capítulo~\ref{ch:planteamiento-problema}, los datos utilizados en este trabajo son feedback implícito, por lo que en el resto de esta sección nos centraremos en modelos que acepten este tipo de datos.
+
+\subsection{Filtrado colaborativo}
+% Ver la librería de librecommender
+
+La idea principal de este tipo de modelos es utilizar la similitud entre las preferencias de distintos usuarios. Los métodos de recomendación basados en filtrado colaborativo se pueden dividir en basados en memoria y basados en modelos.
+
+En los métodos basados en memoria, también llamados basados en vecindario, el \textit{score} para cada par ítem-usuario se genera basándose en los vecinos inmediatos. En concreto, si se genera basándose en los ítems con los que interactúa cada usuario, se denomina \gls{usercf}, y si se utilizan los vecinos de cada ítem se denomina \gls{itemcf}.
+
+Por otra parte, los métodos basados en modelos utilizan modelos de predicción basados en aprendizaje automático y minería de datos, aprendiendo los parámetros necesarios para minimizar una función de pérdida con unos datos de entrenamiento.
+
+Las implementaciones más sencillas de \gls{itemcf} y \gls{usercf} con feedback explícito crean una matriz de ítems-ítems o usuarios-usuarios completa y completan los espacios vacíos de la matriz utilizando las similitudes entre filas, por ejemplo, mediante la similitud del coseno~\cite{massquantity_librecommender_2020}.
+
+\subsubsection{Factorización de Matrices}
+
+Para mejorar tanto la eficiencia como la calidad de las recomendaciones, se utilizan métodos de reducción de la dimensionalidad, representando los ítems y usuarios en un espacio latente de menos dimensiones. La principal familia de este tipo de métodos es la \gls{mf}, en la que la matriz original se descompone en matrices rectangulares tal que su producto sea similar a la matriz original~\cite{koren_matrix_2009}. Originalmente se propuso un método parecido a \gls{svd}~\cite{funk_netflix_2006}, que posteriormente fue mejorado como SVD++ teniendo en cuenta el \textit{bias} o sesgo de cada ítem o usuario para poder abordar también feedback implícito~\cite{koren_factor_2010}. Recientemente, se han propuesto técnicas de descomposición de matrices mediante arquitecturas no lineales, como \gls{ncf}~\cite{he_neural_2017} que utiliza redes neuronales.
+
+\subsubsection{Modelos basados en grafos}
+
+De entre todos los modelos de aprendizaje profundo para recomendación, consideramos los métodos basados en grafos para la tarea de filtrado colaborativo~\cite{wu_graph_2022}. En este tipo de modelos, se utilizan técnicas de \textit{embedding} de grafos para modelar las relaciones entre los nodos~\cite{wang_graph_2020}.
+Los sistemas recomendadores tradicionales, como \gls{mf}, solo tienen en cuenta los elementos con los que el usuario interactúa directamente. En cambio, las \gls{gnn} utilizan información de un vecindario extendido. Esto les permite capturar relaciones más complejas y aprovechar mejor la información estructural~\cite{gao_survey_2023}. Se espera que este tipo de modelos puedan captar los matices de las relaciones presentes entre los miembros de la DAO, como lo han demostrado en tareas similares, como la identificación de usuarios malintencionados~\cite{dupont_new_2024}.
+
+Uno de los sistemas pioneros en este campo es DeepWalk~\cite{perozzi_deepwalk_2014}, que utiliza paseos aleatorios para aprender la representación de nodos. 
+Poco después surgieron las \acrfull{gcn}~\cite{duvenaud_convolutional_2015}, que combinan la convolución de grafos y las redes neuronales para profundizar en la estructura de los subgrafos con vecinos a varios saltos. GraphSAGE fue uno de los primeros modelos en seguir este enfoque~\cite{hamilton_inductive_2017}, y \gls{ngcf}~\cite{wang_neural_2019} introdujo los este tipo de redes al campo del filtrado colaborativo, logrando resultados estado del arte.
+Para este proyecto, se decidió utilizar LightGCN, una popular modificación de \gls{ngcf}, debido a su simplicidad y buenos resultados en \textit{user-item collaborative filtering}, superando otros modelos basados en \gls{gcn} previos~\cite{he_lightgcn_2020}.
+
+\paragraph{LightGCN}
+\label{subsubsec:lightgcn}
+está basado en el modelo \acrfull{ngcf}~\cite{wang_neural_2019}, pero se simplifica al eliminar las matrices de transformación de características que se aprenden en cada convolución. En su lugar, la operación de convolución de grafos (también conocido como regla de propagación), denominada \acrfull{lgc}, realiza una suma ponderada normalizada de los \textit{embeddings} de los vecinos, como se detalla en la ecuación~\ref{eq:3_lgc}
+
+\begin{equation}\label{eq:3_lgc}
+    e_u^{(k+1)} = \sum_{i\in \mathcal{N}_u} \frac{1}{\sqrt{\left|\mathcal{N}_u\right|}\sqrt{\left|\mathcal{N}_i\right|}} e_i^{(k)};
+    \;
+    e_i^{(k+1)} = \sum_{i\in \mathcal{N}_i} \frac{1}{\sqrt{\left|\mathcal{N}_i\right|}\sqrt{\left|\mathcal{N}_u\right|}} e_u^{(k)}
+\end{equation}
+
+Por lo tanto, los únicos parámetros entrenables del modelo son los de la primera capa, y la matriz de predicciones final es la media de los embeddings de cada capa, como se detalla en la ecuación~\ref{eq:3_lgcn_layers}. 
+
+\begin{equation}\label{eq:3_lgcn_layers}
+    e_u = \sum_{k=0}^{K} e_u^{(k)};\;
+    e_i = \sum_{k=0}^{K} e_i^{(k)}
+\end{equation}
+
+La puntuación para una determinada interacción usuario-ítem será $y_u=e_u^\top e_i$. Dado que los únicos parámetros que son aprendidos son los de la primera capa del modelo, la complejidad de este algoritmo es similar a \gls{mf}, dependiente del número de dimensiones del espacio latente y el número total de usuarios e ítems. La arquitectura de este modelo queda definida por el número de dimensiones del espacio latente y el número de capas de convolución.
+
+La función de pérdida utilizada por el modelo es \acrfull{bpr}~\cite{rendle_bpr_2012}. Creado para feedback implícito, en lugar de reemplazar las no-interacciones con ceros asumiendo que es equivalente a feedback negativo, se comparan muestras positivas y muestras negativas para cada usuario, buscando maximizar la probabilidad de que el usuario prefiera la muestra positiva frente a la negativa.
+
+En este trabajo se ha utilizado la implementación de este modelo de la librería Microsoft Recommenders~\cite{argyriou_microsoft_2020}, aunque ha sido necesario modificarlo para tener en cuenta las propuestas cerradas añadiendo un post-filtrado, como se detalla en la subsección~\ref{subsec:implementacion-colaborativo}. El código modificado se encuentra disponible en el GitHub del proyecto~\cite{davo_daviddavoupm-tfm-notebooks_2024}.
+
+\subsection{Filtrado basado en contenido}
+\label{subsec:recsys-content}
+
+Los sistemas basados en contenido se basan en los atributos del elemento a recomendar y el perfil de preferencias del usuario, que a su vez está basado en los atributos de elementos con los que ha interactuado en el pasado~\cite{aggarwal_recommender_2016}.
+
+Este tipo de sistemas tienen una ventaja en el escenario de arranque en frío (\textit{cold-start}) en items, en el que aún no se tiene suficiente feedback de otros usuarios como para realizar buenas recomendaciones con filtrado colaborativo. En tal caso, con tener suficiente información para formar un buen perfil del usuario es suficiente. Sin embargo, estos sistemas no pueden realizar recomendaciones a nuevos usuarios, al no tener información con la que formar un perfil.
+
+Un sistema recomendador basado en contenido generalmente sigue tres pasos: el preprocesado y extracción de atributos de los ítems, el aprendizaje de los perfiles de los usuarios, y finalmente el filtrado y recomendación.
+
+En la extracción de atributos se crea un vector para cada elemento, y es un paso muy dependiente del dominio. Por ejemplo, con información textual, pueden usarse métodos clásicos como \textit{bag-of-words}, TF-IDF, o \textit{embeddings} preentrenados. El aprendizaje de los modelos de usuario es similar al campo de clasificación de texto, y se usan métodos similares como \gls{knn}, similitud del coseno, o clasificadores bayesianos. Finalmente, se utilizan los resultados del modelo anterior para realizar la recomendación, por ejemplo recomendando los $k$ ítems con mayor similitud al usuario, o que mayor probabilidad tienen de pertenecer a la clase de ítems interactuados. Este último paso suele ser muy eficiente y puede ejecutarse en tiempo real.
+
+En la sección~\ref{subsec:implementacion-contenido} se explora la implementación usada en este trabajo, que hace uso de \textit{embeddings} preentrenados para las características, y explora varios métodos de creación del perfil del usuario. El código del modelo desarrollado se puede encontrar en el GitHub del proyecto~\cite{davo_daviddavoupm-tfm-notebooks_2024}.
+
+\subsection{Híbridos}
+
+Los sistemas híbridos permiten combinar múltiples fuentes de datos para realizar mejores recomendaciones. Según el diseño del sistema, podemos distinguir las siguientes maneras de desarrollar un sistema recomendador híbrido~\cite{aggarwal_recommender_2016}:
+
+\begin{enumerate}
+    \item \textbf{Diseño monolítico}: Se crea un sistema recomendador que integra varias fuentes de datos, sin que existan componentes individuales. Un ejemplo de estos sistemas son las \acrfull{fm}~\cite{rendle_factorization_2010}, que combinan las ventajas de los \glspl{svm} con la \acrlongsp{mf}~\cite{zhang_introduction_2022}.
+    \item \textbf{Sistemas mixtos} Utilizan múltiples sistemas recomendadores preexistentes y se presentan sus resultados a los usuarios en paralelo.
+    \item \textbf{Diseño de ensamblado} Al igual que en los sistemas mixtos, se utilizan varios sistemas recomendadores preexistentes que son combinados en una salida más robusta. El quid de este tipo de sistemas es elegir una metodología para combinar la salida de estos sistemas, que puede utilizar o bien los \textit{scores} de cada sistema o bien la posición de las recomendaciones realizadas.
+\end{enumerate}
+
+El sistema híbrido desarrollado en este trabajo es un sistema de ensamblado que combina los otros dos sistemas desarrollados utilizando la posición de sus recomendaciones, y su especificación se detalla en la sección~\ref{subsec:implementacion-hybrid}.
+
+% \subsubsection{Factorization Machines}
+
+% % TODO: Releer el abstract del paper y hacer esta sección
+% Combinando las ventajas \gls{svm} y \gls{mf} se crean las \acrfull{fm}~\cite{rendle_factorization_2010}, que son aplicables a problemas de predicción genéricos con cualquier tipo de datos de entrada.
+
+% \begin{itemize}
+%     \item Factorization Machine??
+%     \item DeepFM
+%     \item LightFM
+% \end{itemize}

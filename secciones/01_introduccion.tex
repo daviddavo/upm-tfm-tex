@@ -1,0 +1,36 @@
+\chapter{Introducción}
+% \section{Motivaciones}
+
+Una \ac{dao} es un sistema basado en blockchain que opera de forma autónoma y permite tomar decisiones mediante contratos inteligentes, sin necesidad de una autoridad central~\cite{hassan_decentralized_2021}. Son una innovadora forma de gobernanza que permite a las comunidades decidir colectivamente sobre asuntos que las afecten.
+
+Según el portal de analíticas Deepdao\footnote{\url{https://deepdao.io}. Accedido Feb. 15, 2024.}, hay aproximadamente 20~000 DAOs con una tesorería total valorada en más de 37.1 miles de millones de dólares estadounidenses, y con una base de usuarios activos de sobre 3 millones de votantes y contribuidores de propuestas. La escala de estas organizaciones varía enormemente, con \glspl{dao} pequeñas con una docena de miembros, a otras con millones de usuarios. La mayoría de ellas son pequeñas, con solo 400 DAOs de más de 100 miembros recogidas por Deepdao.
+
+En principio, son horizontales y cualquiera puede realizar propuestas que serán votadas por los miembros de la organización. Sin embargo, estas plataformas enfrentan importantes retos: la distribución desigual del poder de votación y la disparidad en la participación~\cite{arroyo_dao-analyzer_2022}, problema que caracteriza a las comunidades en línea~\cite{nielsen_participation_2006}, y en común con la baja participación en las elecciones tradicionales~\cite{geys_explaining_2006}.
+
+% Expertise, reputation, time, or money can all be required to gain decision-making power. The higher these costs are, the fewer are the people who want to participate, which contributes to centralization in practice.
+% From Will we realize blockchain promise of decentralization? Harvard Business Review
+La baja participación es un tema complejo y difícil de analizar, pero una posible hipótesis es que en las organizaciones más grandes a los usuarios puede resultarles inabarcable el volumen de propuestas abiertas cada día, dificultando que tomen un rol activo en su gobernanza. \textquote{Es necesario tener tiempo, información, experiencia y reputación para obtener poder de decisión. Cuanto más altos sean los costes, menos gente querrá participar, lo que en la práctica contribuirá a la descentralización}~\cite{halaburda_will_2019}.
+
+La falta de atención en estas organizaciones es un problema abierto~\cite{tan_open_2023} que amenaza las aspiraciones originales de descentralización~\cite{buterin_notes_2017}, y que puede incluso usarse para explotar los requisitos de mayoría simple para drenar los fondos de una organización, habiendo cientos de millones de dólares en riesgo~\cite{patka_exploiting_2022}.
+
+La solución propuesta en este Trabajo de Fin de Máster es la de implementar un Sistema Recomendador, encargado de hacer esa curación de propuestas personalizada y de manera automática, complementando a los humanos encargados de esas tareas y haciendo el sistema más resiliente a interferencias externas. Además, simplifica la experiencia del usuario al facilitarle propuestas en las que votar basándose en sus intereses e historial. Esta mejora podría incluso aumentar la participación, consiguiendo una representación más fiel de la opinión de los usuarios.
+
+Aunque este sistema ha sido aplicado al contexto de las \glspl{dao} debido a la disponibilidad del conjunto de datos, es una prueba de concepto de un posible sistema similar para otras plataformas de trabajo colaborativo. Este enfoque podría ser extrapolado con éxito a entornos análogos, como son las plataformas de participación ciudadana, donde los ciudadanos pueden ejercer su voto en propuestas para que las implemente el ayuntamiento. 
+% Fuera de este ámbito, puede considerarse la aplicación de este tipo de sistemas a contextos diversos, tal como la recomendación personalizada de \enquote{Issues} y \enquote{Pull Requests}  en GitHub, o la recomendación de artículos a desarrollar en Wikipedia.
+
+\section{Objetivos}
+El objetivo principal de este trabajo de fin de máster consiste en la creación y evaluación de un sistema recomendador para propuestas en Organizaciones Autónomas Descentralizadas. Se proponen varios sistemas usando distintas técnicas y algoritmos, y se evalúa cada uno de ellos, habiendo sido necesario crear un marco de técnicas de evaluación específico para este caso concreto debido a la naturaleza temporal de los elementos a recomendar. Se definen los siguientes objetivos:
+
+\begin{itemize}
+    \item Conocer el funcionamiento de los sistemas recomendadores y librerías para su implementación.
+    \item Entender las peculiaridades de la aplicación al campo de las \glspl{dao} y exponer las diferencias con un sistema recomendador clásico.
+    \item Crear un marco de técnicas de evaluación específico para este caso, habiendo considerado la naturaleza temporal de los elementos a recomendar en las \glspl{dao}.
+    \item Diseñar y programar un sistema híbrido, basado en contenido y filtrado colaborativo, realizando una evaluación realista del posible despliegue del sistema.
+    \item Obtener conclusiones y proponer posibles mejoras para una posible aplicación del sistema.
+\end{itemize}
+
+\section{Estructura}
+
+Esta memoria se divide en cuatro partes. Una primera que contiene esta introducción; una segunda que contiene el estado del arte y definiciones previas necesarias para definir el problema; una tercera parte en la que se presenta el problema, un marco de validación, y se definen los experimentos; y una última parte que presenta los resultados del sistema y conclusiones.
+
+%%---------------------------------------------------------
